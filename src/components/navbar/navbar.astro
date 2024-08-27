@@ -42,104 +42,60 @@ const menuitems = [
 
 <Container>
   <header class="flex flex-col lg:flex-row justify-center items-center my-5">
-<!-- ====== Navbar Section Start -->
-<header
-   x-data="
-   {
-   navbarOpen: false
-   }
-   "
-   class="flex items-center w-full bg-white dark:bg-dark"
-   >
-   <div class="container mx-auto">
-      <div class="relative flex items-center justify-between -mx-4">
-         <div class="max-w-full px-4 w-60">
-            <a href="javascript:void(0)" class="block w-full py-5">
-            <img
-               src="https://cdn.tailgrids.com/2.0/image/assets/images/logo/logo-primary.svg"
-               alt="logo"
-               class="dark:hidden"
-               />
-            <img
-               src="https://cdn.tailgrids.com/2.0/image/assets/images/logo/logo-white.svg"
-               alt="logo"
-               class="hidden dark:block"
-               />
-            </a>
-         </div>
-         <div class="flex items-center justify-between w-full px-4">
-            <div>
-               <button
-                  @click="navbarOpen = !navbarOpen"
-                  :class="navbarOpen && 'navbarTogglerActive' "
-                  id="navbarToggler"
-                  class="absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
-                  >
-               <span
-                  class="relative my-[6px] block h-[2px] w-[30px] bg-body-color dark:bg-white"
-                  ></span>
-               <span
-                  class="relative my-[6px] block h-[2px] w-[30px] bg-body-color dark:bg-white"
-                  ></span>
-               <span
-                  class="relative my-[6px] block h-[2px] w-[30px] bg-body-color dark:bg-white"
-                  ></span>
-               </button>
-               <nav
-                  :class="!navbarOpen && 'hidden' "
-                  id="navbarCollapse"
-                  class="absolute right-4 top-full w-full max-w-[250px] rounded-lg bg-white py-5 px-6 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none dark:bg-dark-2 lg:dark:bg-transparent"
-                  >
-                  <ul class="block lg:flex">
-                     <li>
-                        <a
-                           href="javascript:void(0)"
-                           class="flex py-2 text-base font-medium text-body-color hover:text-dark lg:ml-12 lg:inline-flex dark:text-dark-6 dark:hover:text-white"
-                           >
-                        Home
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="javascript:void(0)"
-                           class="flex py-2 text-base font-medium text-body-color hover:text-dark lg:ml-12 lg:inline-flex dark:text-dark-6 dark:hover:text-white"
-                           >
-                        Payment
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="javascript:void(0)"
-                           class="flex py-2 text-base font-medium text-body-color hover:text-dark lg:ml-12 lg:inline-flex dark:text-dark-6 dark:hover:text-white"
-                           >
-                        Features
-                        </a>
-                     </li>
-                  </ul>
-               </nav>
-            </div>
-            <div class="justify-end hidden pr-16 sm:flex lg:pr-0">
-               <a
-                  href="javascript:void(0)"
-                  class="py-3 text-base font-medium px-7 text-dark dark:text-white hover:text-primary"
-                  >
-               Login
-               </a>
-               <a
-                  href="javascript:void(0)"
-                  class="py-3 text-base font-medium text-white rounded-md bg-primary px-7 hover:bg-primary/90"
-                  >
-               Sign Up
-               </a>
-            </div>
-         </div>
+    <Astronav>
+      <div class="flex w-full lg:w-auto items-center justify-between">
+        <a href="/" class="text-lg"
+          ><span class="font-bold text-slate-800">Astro</span><span
+            class="text-slate-500">ship</span
+          >
+        </a>
+        <div class="block lg:hidden">
+          <MenuIcon class="w-4 h-4 text-gray-800" />
+        </div>
       </div>
-   </div>
-</header>
-<!-- ====== Navbar Section End -->
-      <div class="hidden lg:flex items-center gap-4">
- </div>
+      <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
+        <ul class="flex flex-col lg:flex-row lg:gap-3">
+          {
+            menuitems.map((item, index) => (
+              <>
+                {item.children && (
+                  <Dropdown
+                    title={item.title}
+                    children={item.children}
+                    lastItem={index === menuitems.length - 1}
+                  />
+                )}
 
+                {!item.children && (
+                  <li>
+                    <a
+                      href={item.path}
+                      class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900">
+                      <span> {item.title}</span>
+                      {item.badge && (
+                        <span class="ml-1 px-2 py-0.5 text-[10px] animate-pulse font-semibold uppercase text-white bg-indigo-600 rounded-full">
+                          New
+                        </span>
+                      )}
+                    </a>
+                  </li>
+                )}
+              </>
+            ))
+          }
+        </ul>
+        <div class="lg:hidden flex items-center mt-3 gap-4">
+          <Link href="#" style="muted" block size="md">Log in</Link>
+          <Link href="#" size="md" block>Sign up</Link>
+        </div>
+      </MenuItems>
+    </Astronav>
+    <div>
+      <div class="hidden lg:flex items-center gap-4">
+        <a href="#">Log in</a>
+        <Link href="#" size="md">Sign up</Link>
+      </div>
+    </div>
   </header>
 </Container>
 <br/>
